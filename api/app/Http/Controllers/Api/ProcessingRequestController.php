@@ -42,6 +42,7 @@ class ProcessingRequestController extends Controller
 
     public function show(ProcessingRequest $processingRequest, ProcessingRequestDetailService $service): JsonResponse
     {
+        //Implementing pagination.
         return response()->json([
             'data' => new ProcessingRequestResource($service->get($processingRequest)),
         ]);
