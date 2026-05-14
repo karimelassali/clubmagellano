@@ -23,23 +23,23 @@ The Angular frontend should allow users to:
 
 ## Backend Already Present
 
-- [ ] Main models
-- [ ] Basic migrations
-- [ ] Basic seeder
-- [ ] `POST /api/login`
-- [ ] `GET /api/me`
-- [ ] Main API routes declared
-- [ ] Job and service skeletons
+- [ x] Main models
+- [x] Basic migrations
+- [ x] Basic seeder
+- [ x] `POST /api/login`
+- [ x] `GET /api/me`
+- [ x] Main API routes declared
+- [ x] Job and service skeletons
 
 ---
 
 ## Frontend Already Present
 
-- [ ] Basic Angular routing
-- [ ] Minimal login page
-- [ ] Minimal layout
-- [ ] Initial API services
-- [ ] Basic screens scaffolded
+- [x] Basic Angular routing
+- [x] Minimal login page
+- [x] Minimal layout
+- [x] Initial API services
+- [x] Basic screens scaffolded
 
 ---
 
@@ -47,7 +47,7 @@ The Angular frontend should allow users to:
 
 ## Authentication
 
-- [ ] Protect all required endpoints using authentication middleware
+- [x] Protect all required endpoints using authentication middleware
 
 ---
 
@@ -58,9 +58,9 @@ The Angular frontend should allow users to:
 ### GET `/api/projects`
 
 ### Requirements
-- [ ] Return only active projects
-- [ ] Use application cache with 5-minute TTL
-- [ ] Invalidate cache when projects change
+- [ x] Return only active projects
+- [ x] Use application cache with 5-minute TTL
+- [ x] Invalidate cache when projects change
 
 ---
 

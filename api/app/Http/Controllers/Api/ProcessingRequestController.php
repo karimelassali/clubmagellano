@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProcessingRequestRequest;
 use App\Http\Resources\ProcessingRequestResource;
 use App\Services\ProcessingRequestQueryService;
 use App\Services\ProcessingRequestDetailService;
+use Illuminate\Support\Facades\Cache;
 
 class ProcessingRequestController extends Controller
 {
@@ -30,6 +31,7 @@ class ProcessingRequestController extends Controller
             'payload_json' => $request->input('payload_json'),
             'status' => ProcessingRequest::STATUS_PENDING,
         ]);
+        
 
         ProcessProcessingRequestJob::dispatch($processingRequest);
 

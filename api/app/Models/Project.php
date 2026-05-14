@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class Project extends Model
 {
@@ -17,4 +18,17 @@ class Project extends Model
     {
         return $this->hasMany(ProcessingRequest::class);
     }
+
+    protected static function booted() {
+    static::saved(function ($project) {
+        Cache::forget('active_projects');
+    });
+
+    static::deleted(function ($project) {
+        Cache::forget('active_projects');
+    });
 }
+
+}
+
+
