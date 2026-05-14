@@ -3,5 +3,10 @@
 /node_modules-linux-x64
 .env
 .env.development
-/backend/vendor
+/api/vendor
 /frontend/.angular/
+/api/.env
+/api/storage
+/api/database/database.sqlite
+/api/storage/framework
+

@@ -10,7 +10,7 @@ import { AuthService } from '../../core/services/auth.service';
   template: `
     <div class="card">
       <h2>Login</h2>
-      <p>Utente seed: senior@example.com / password</p>
+      <p>Utente seed: seniorexample.com / password</p>
       <form (ngSubmit)="submit()">
         <div><input [(ngModel)]="email" name="email" placeholder="Email"></div>
         <div><input [(ngModel)]="password" name="password" type="password" placeholder="Password"></div>

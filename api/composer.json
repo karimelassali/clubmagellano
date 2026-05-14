@@ -8,7 +8,12 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
     }
+  },
+  "require-dev": {
+    "laravel/pail": "^1.2"
   }
 }
