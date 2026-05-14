@@ -23,15 +23,14 @@ The Angular frontend should allow users to:
 
 ## Backend Already Present
 
-- [ x] Main models
+- [x] Main models
 - [x] Basic migrations
-- [ x] Basic seeder
-- [ x] `POST /api/login`
-- [ x] `GET /api/me`
-- [ x] Main API routes declared
-- [ x] Job and service skeletons
-
----
+- [x] Basic seeder
+- [x] `POST /api/login`
+- [x] `GET /api/me`
+- [x] Main API routes declared
+- [x] Job and service skeletons
+- [x] Protect all required endpoints using authentication middleware
 
 ## Frontend Already Present
 
@@ -43,50 +42,34 @@ The Angular frontend should allow users to:
 
 ---
 
-# Backend Tasks
-
-## Authentication
-
-- [x] Protect all required endpoints using authentication middleware
-
----
-
-# API Endpoints To Implement
+# Backend Tasks (API Endpoints)
 
 ## Projects
 
 ### GET `/api/projects`
-
-### Requirements
-- [ x] Return only active projects
-- [ x] Use application cache with 5-minute TTL
-- [ x] Invalidate cache when projects change
+- [x] Return only active projects
+- [x] Use application cache with 5-minute TTL
+- [x] Invalidate cache when projects change
 
 ---
 
 ## Processing Requests
 
 ### GET `/api/processing-requests`
-
-### Requirements
-- [ ] Add pagination
+- [x] Add pagination
 - [ ] Add filters:
-  - [ ] status
-  - [ ] project_id
-  - [ ] reference
-  - [ ] date_from
-  - [ ] date_to
-- [ ] Add sorting:
-  - [ ] created_at
-- [ ] Include relationships:
-  - [ ] project
-  - [ ] creator
-
----
+  - [x] status
+  - [x] project_id
+  - [x] reference
+  - [ ] date_from (Pending: Fix fragile date range filtering bug)
+  - [ ] date_to (Pending: Fix fragile date range filtering bug)
+- [x] Add sorting:
+  - [x] created_at
+- [x] Include relationships:
+  - [x] project
+  - [x] creator
 
 ### POST `/api/processing-requests`
-
-### Requirements
 - [ ] Validate request input
 - [ ] Validate `project_id`
   - [ ] Must exist
@@ -99,25 +82,65 @@ The Angular frontend should allow users to:
 - [ ] Create request with `pending` status
 - [ ] Dispatch processing job to queue
 
-### Example Payload
+### GET `/api/processing-requests/{id}`
+- [x] Include full data for the request, project, and creator
+- [x] Use short-term cache only for `completed` requests (Fixed Bug 2)
 
-```json
-{
-  "project_id": 1,
-  "reference": "ACME-001",
-  "payload_json": {
-    "customer": "ACME",
-    "items": [
-      {
-        "sku": "A1",
-        "qty": 2,
-        "price": 10
-      },
-      {
-        "sku": "B2",
-        "qty": 1,
-        "price": 30
-      }
-    ]
-  }
-}
+### POST `/api/processing-requests/{id}/retry`
+- [ ] Allowed only for `failed` requests
+- [ ] Reset the request to `pending`
+- [ ] Re-queue the job
+
+---
+
+## Dashboard
+
+### GET `/api/dashboard/stats`
+- [ ] Return Total requests
+- [ ] Return Count by status
+- [ ] Return Requests created today
+- [ ] Return Average processing time for completed requests
+- [ ] Use application cache with a 2-minute TTL
+
+---
+
+# Background Processing (Queue)
+
+## ProcessProcessingRequestJob
+- [ ] Set status to `processing`
+- [ ] Process the payload
+  - [ ] Calculate `items_count`
+  - [ ] Calculate `total_amount`
+  - [ ] Calculate `vat`
+  - [ ] Calculate `grand_total`
+- [ ] Produce a `result_json`
+- [ ] Set `processed_at`
+- [ ] In case of error, set to `failed` and populate `error_message`
+- [ ] Enforce minimum rules: `items` not empty, `qty > 0`, `price >= 0`
+
+---
+
+# Frontend Tasks (Angular)
+
+## Login
+- [x] Use `POST /api/login`
+- [x] Save the bearer token
+- [x] Use `GET /api/me` to retrieve the authenticated user
+
+## Request List
+- [ ] Table with `id`, `reference`, `project`, `status`, `created_at`, `processed_at`
+- [ ] Filter by status and project
+- [ ] Manual refresh button
+
+## Create Request
+- [ ] Form with project dropdown, reference input, JSON payload textarea
+- [ ] Submit to API
+- [ ] Error handling
+
+## Detail View
+- [ ] Show original payload
+- [ ] Show result
+- [ ] Retry button if `failed`
+
+## Dashboard
+- [ ] Show summary statistics cards
