@@ -70,16 +70,16 @@ The Angular frontend should allow users to:
   - [x] creator
 
 ### POST `/api/processing-requests`
-- [ ] Validate request input
-- [ ] Validate `project_id`
-  - [ ] Must exist
-  - [ ] Must refer to active project
-- [ ] Validate `reference`
-  - [ ] Unique within project
-- [ ] Validate `payload_json`
-  - [ ] Contains `customer`
-  - [ ] Contains non-empty `items` array
-- [ ] Create request with `pending` status
+- [ x] Validate request input
+- [x ] Validate `project_id`
+  - [ x] Must exist
+  - [ x] Must refer to active project
+- [ x] Validate `reference`
+  - [ x] Unique within project
+- [x ] Validate `payload_json`
+  - [ x] Contains `customer`
+  - [ x] Contains non-empty `items` array
+- [x ] Create request with `pending` status
 - [ ] Dispatch processing job to queue
 
 ### GET `/api/processing-requests/{id}`
