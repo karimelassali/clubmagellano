@@ -64,11 +64,34 @@ class ProcessingRequestController extends Controller
     public function retry(ProcessingRequest $processingRequest): JsonResponse
     {
         // TODO:
-        // - consentire retry solo se failed
-        // - resettare error_message, result_json, processed_at
-        // - re-dispatchare il job
+        // - consentire retry solo se failed-Done
+        // - resettare error_message, result_json, processed_at-Done
+        // - re-dispatchare il job-Done
+
+
+        //Checking if the request is failed.
+        if($processingRequest->status == ProcessingRequest::STATUS_FAILED){
+            //Resetting the request to pending.
+            $processingRequest->update([
+                'status' => ProcessingRequest::STATUS_PENDING,
+                'error_message' => null,
+                'result_json' => null,
+                'processed_at' => null,
+            ]);
+            
+            //Re-dispatching the job.
+            ProcessProcessingRequestJob::dispatch($processingRequest);
+            
+            //Returning the updated request.
+            return response()->json([
+                'data' => new ProcessingRequestResource($processingRequest->load(['project', 'creator'])),
+            ]);
+        }
+        
+
+        //We make sure that only the failed requests can be retried. So if the request is not failed, we return an error.501 means not implemented.
         return response()->json([
-            'message' => 'Not implemented',
-        ], 501);
+            'message' => 'Only Failed requests can be retried.',
+        ], 422);
     }
 }

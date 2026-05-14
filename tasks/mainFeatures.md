@@ -87,20 +87,20 @@ The Angular frontend should allow users to:
 - [x] Use short-term cache only for `completed` requests (Fixed Bug 2)
 
 ### POST `/api/processing-requests/{id}/retry`
-- [ ] Allowed only for `failed` requests
-- [ ] Reset the request to `pending`
-- [ ] Re-queue the job
+- [ x] Allowed only for `failed` requests
+- [ x] Reset the request to `pending`
+- [x ] Re-queue the job
 
 ---
 
 ## Dashboard
 
 ### GET `/api/dashboard/stats`
-- [ ] Return Total requests
-- [ ] Return Count by status
-- [ ] Return Requests created today
-- [ ] Return Average processing time for completed requests
-- [ ] Use application cache with a 2-minute TTL
+- [x ] Return Total requests
+- [ x] Return Count by status
+- [ x] Return Requests created today
+- [ x] Return Average processing time for completed requests
+- [x ] Use application cache with a 2-minute TTL
 
 ---
 
