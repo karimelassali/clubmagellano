@@ -1,0 +1,1 @@
+i did fix the dashboardService the sql query was not working on sqlite so i replaced it with a working one for sqlite 

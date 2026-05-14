@@ -18,8 +18,7 @@ class DashboardStatsService
         $avgSeconds = ProcessingRequest::query()
             ->where('status', ProcessingRequest::STATUS_COMPLETED)
             ->whereNotNull('processed_at')
-            ->selectRaw('AVG(TIMESTAMPDIFF(SECOND, created_at, processed_at)) as avg_seconds')
-            ->value('avg_seconds');
+->selectRaw("AVG(strftime('%s', processed_at) - strftime('%s', created_at)) as avg_seconds")            ->value('avg_seconds');
 
         return [
             'total' => ProcessingRequest::count(),
