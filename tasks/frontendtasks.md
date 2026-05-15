@@ -41,7 +41,7 @@
 ## Dashboard
 
 - [ ] Improve dashboard UI/UX
-- [ ] Add loading states
+- [ x] Add loading states
 - [ ] Add error handling
 - [ ] Improve responsiveness
 - [ ] Add summary/statistics cards
