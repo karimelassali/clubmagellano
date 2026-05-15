@@ -31,6 +31,7 @@ export class LoginComponent {
     this.auth.login(this.email, this.password).subscribe({
       next: (response) => {
         this.auth.saveToken(response.token);
+        
         this.message = 'Login eseguito';
         this.router.navigateByUrl('/');
       },

@@ -8,6 +8,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string) {
+    console.log(email, password);
     return this.http.post<any>('http://localhost:8000/api/login', { email, password });
   }
 
@@ -21,5 +22,13 @@ export class AuthService {
 
   me() {
     return this.http.get('http://localhost:8000/api/me');
+  }
+
+  logout() {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 
 class ProcessProcessingRequestJob implements ShouldQueue
 {
@@ -23,7 +24,8 @@ class ProcessProcessingRequestJob implements ShouldQueue
     {
         $request = $this->processingRequest->fresh();
 
-        if (! $request) {
+        // Only process if it's still pending!
+        if (! $request || $request->status !== ProcessingRequest::STATUS_PENDING) {
             return;
         }
 
@@ -55,6 +57,9 @@ class ProcessProcessingRequestJob implements ShouldQueue
             ]);
 
             throw $e;
+        } finally {
+            // CACHE INVALIDATION: Ensure the dashboard shows fresh numbers!
+            Cache::forget('dashboard_stats');
         }
     }
 }

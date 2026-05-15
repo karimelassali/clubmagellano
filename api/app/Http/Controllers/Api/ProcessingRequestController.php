@@ -25,17 +25,7 @@ class ProcessingRequestController extends Controller
 
     public function store(StoreProcessingRequestRequest $request): JsonResponse
     {
-        //Implementig validation for the request.
-        $request->validate([
-            'reference' => 'required|unique:processing_requests,reference',
-            'project_id' => 'required|exists:projects,id',
-            'payload_json' => 'required|array',
-            'payload_json.customer' => 'required|string',
-            'payload_json.items' => 'required|array|min:1',
-            'payload_json.items.*.sku' => 'required|string',
-            'payload_json.items.*.qty' => 'required|integer|min:1',
-            'payload_json.items.*.price' => 'required|min:0',
-        ]);
+       
 
         $processingRequest = ProcessingRequest::create([
             'project_id' => $request->integer('project_id'),

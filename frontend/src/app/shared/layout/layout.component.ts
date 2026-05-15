@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -14,10 +15,24 @@ import { RouterLink } from '@angular/router';
           <a routerLink="/requests">Requests</a>
           <a routerLink="/requests/new">New request</a>
           <a routerLink="/login">Login</a>
+
+          @if(auth.isAuthenticated()) {
+            <button (click)="logout()">Logout</button>
+          }
+
         </nav>
       </div>
       <ng-content></ng-content>
     </div>
   `
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  public auth = inject(AuthService);
+  private router = inject(Router);
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
+}

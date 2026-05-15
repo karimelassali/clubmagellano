@@ -107,16 +107,16 @@ The Angular frontend should allow users to:
 # Background Processing (Queue)
 
 ## ProcessProcessingRequestJob
-- [ ] Set status to `processing`
-- [ ] Process the payload
-  - [ ] Calculate `items_count`
-  - [ ] Calculate `total_amount`
-  - [ ] Calculate `vat`
-  - [ ] Calculate `grand_total`
-- [ ] Produce a `result_json`
-- [ ] Set `processed_at`
-- [ ] In case of error, set to `failed` and populate `error_message`
-- [ ] Enforce minimum rules: `items` not empty, `qty > 0`, `price >= 0`
+- [x ] Set status to `processing`
+- [ x] Process the payload
+  - [x ] Calculate `items_count`
+  - [ x] Calculate `total_amount`
+  - [ x] Calculate `vat`
+  - [x ] Calculate `grand_total`
+- [ x] Produce a `result_json`
+- [ x] Set `processed_at`
+- [x ] In case of error, set to `failed` and populate `error_message`
+- [ x] Enforce minimum rules: `items` not empty, `qty > 0`, `price >= 0`
 
 ---
 
@@ -144,3 +144,5 @@ The Angular frontend should allow users to:
 
 ## Dashboard
 - [ ] Show summary statistics cards
+
+

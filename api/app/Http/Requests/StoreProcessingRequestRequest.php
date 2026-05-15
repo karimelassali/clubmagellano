@@ -26,6 +26,7 @@ class StoreProcessingRequestRequest extends FormRequest
                 'string',
                 'max:100',
                 // TODO: rendere univoco per progetto
+                Rule::unique('processing_requests', 'reference')->where('project_id', $this->project_id),
             ],
             'payload_json' => ['required', 'array'],
             'payload_json.customer' => ['required', 'string', 'max:255'],
