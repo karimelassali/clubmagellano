@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code&display=swap');
+
+:host {
+  display: block;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px);
+  background-color: #afbad4;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(88, 28, 135, 0.3) 0px, transparent 50%);
+  font-family: 'Inter', sans-serif;
+}
+
+.card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(188, 197, 212, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 32px;
+  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6, #a855f7, transparent);
+  opacity: 0.5;
+}
+
+h2 {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f8fafc;
+  background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button {
+  grid-column: 2;
+  grid-row: 1;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+pre {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  margin: 0;
+  background: rgba(228, 231, 247, 0.8);
+  border-radius: 20px;
+  padding: 32px;
+  font-family: 'Fira Code', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #60a5fa;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow-x: auto;
+  position: relative;
+  box-shadow: inset 0 2px 4px 0 rgba(228, 205, 205, 0.5);
+}
+
+pre::before {
+  content: 'SYSTEM_STATS_FEED';
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(96, 165, 250, 0.4);
+  letter-spacing: 0.2em;
+}
+
+/* Custom Scrollbar */
+pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 24px;
+  }
+  
+  h2 {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  button {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+  
+  pre {
+    grid-column: 1;
+    grid-row: 3;
+    padding: 20px;
+    font-size: 13px;
+  }
+}

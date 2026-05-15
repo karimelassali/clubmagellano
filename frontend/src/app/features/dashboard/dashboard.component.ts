@@ -6,13 +6,8 @@ import { ApiService } from '../../core/services/api.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [JsonPipe],
-  template: `
-    <div class="card">
-      <h2>Dashboard</h2>
-      <button (click)="load()">Refresh</button>
-      <pre>{{ stats | json }}</pre>
-    </div>
-  `
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
   stats: unknown = null;
