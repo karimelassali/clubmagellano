@@ -34,7 +34,6 @@ export class LoginComponent {
   // password = 'password';
  
 
-  //Strong Validation...
 
 
   private fb = inject(FormBuilder);
@@ -43,14 +42,23 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
 
-  //Strong Validation...
+  //Improved Validation...
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
 
   submit() {
+
+    //If form is invalid, show error message and return.
+    if(this.loginForm.invalid){
+      this.message = 'Per favore inserisci email e password';
+      return;
+    }
+
+    //Set loading to true and show spinner.
     this.loading.set(true);
+    
     const {email,password} = this.loginForm.value;
     this.auth.login(email, password).subscribe({
       next: (response) => {

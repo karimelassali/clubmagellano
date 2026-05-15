@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AuthResponse, User } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -8,8 +9,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string) {
-    console.log(email, password);
-    return this.http.post<any>('http://localhost:8000/api/login', { email, password });
+    // console.log(email, password);
+
+
+    //Using AuthResponse for type safety.
+    return this.http.post<AuthResponse>('http://localhost:8000/api/login', { email, password });
   }
 
   saveToken(token: string) {
@@ -21,7 +25,8 @@ export class AuthService {
   }
 
   me() {
-    return this.http.get('http://localhost:8000/api/me');
+    //Usingg User Interface for type safety.
+    return this.http.get<User>('http://localhost:8000/api/me');
   }
 
   logout() {

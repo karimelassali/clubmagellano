@@ -2,26 +2,26 @@
 
 ## Authentication
 
-- [ ] Improve login form validation
-- [ ] Add proper TypeScript typing to auth responses
-- [ ] Store authentication token/session securely
-- [ ] Create authentication service
-- [ ] Handle login loading state
-- [ ] Handle login API errors
-- [ ] Redirect user after successful login
-- [ ] Redirect unauthenticated users to login page
-- [ ] Add logout functionality
+- [x] Improve login form validation
+- [ x] Add proper TypeScript typing to auth responses
+- [] Store authentication token/session securely
+- [x] Create authentication service
+- [x] Handle login loading state
+- [x] Handle login API errors
+- [x] Redirect user after successful login
+- [x] Redirect unauthenticated users to login page
+- [x] Add logout functionality
 
 ---
 
 ## Route Protection
 
-- [ ] Create Angular auth guard (`CanActivate`)
-- [ ] Protect dashboard routes
-- [ ] Protect request detail routes
-- [ ] Protect request creation routes
-- [ ] Handle expired sessions/tokens
-- [ ] Redirect unauthorized users properly
+- [x ] Create Angular auth guard (`CanActivate`)
+- [x ] Protect dashboard routes
+- [ x] Protect request detail routes
+- [ x] Protect request creation routes
+- [x ] Handle expired sessions/tokens
+- [x ] Redirect unauthorized users properly
 
 ---
 
