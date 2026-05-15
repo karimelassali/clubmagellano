@@ -1,0 +1,14 @@
+<div class="card">
+      <h2>Login-Cogito</h2>
+      <p>Utente seed: seniorexample.com / password</p>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div><input formControlName="email" name="email" placeholder="Email"></div>
+        <div><input formControlName="password" name="password" type="password" placeholder="Password"></div>
+        @if(loading()){
+          <p>loading...</p>
+        }@else{
+          <button type="submit" >Login</button>
+        }
+      </form>
+      <p>{{ message }}</p>
+    </div>

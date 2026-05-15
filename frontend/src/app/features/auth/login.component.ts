@@ -1,42 +1,69 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+// import { FormsModule } from '@angular/forms';
+
+//Using Form Builder and Reactive Forms for better forms handling and validation.
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { inject } from '@angular/core';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
-  template: `
-    <div class="card">
-      <h2>Login</h2>
-      <p>Utente seed: seniorexample.com / password</p>
-      <form (ngSubmit)="submit()">
-        <div><input [(ngModel)]="email" name="email" placeholder="Email"></div>
-        <div><input [(ngModel)]="password" name="password" type="password" placeholder="Password"></div>
-        <button type="submit">Login</button>
-      </form>
-      <p>{{ message }}</p>
-    </div>
-  `
+
+  //We using Reactive Forms instead of Template Driven Forms 
+  //becuase it's more powerful and maintainable.
+  imports: [ReactiveFormsModule, SpinnerComponent],
+  styleUrl: "./login.component.css",
+
+  //Using A seperated html comp for clean code and better scalability.
+  templateUrl: "./login.component.html"
 })
 export class LoginComponent {
-  email = 'senior@example.com';
-  password = 'password';
+  loading = signal(false);
   message = '';
+
+  // email = 'senior@example.com';
+  // password = 'password';
+ 
+
+  //Strong Validation...
+
+
+  private fb = inject(FormBuilder);
+
 
   constructor(private auth: AuthService, private router: Router) {}
 
+
+  //Strong Validation...
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
+
   submit() {
-    this.auth.login(this.email, this.password).subscribe({
+    this.loading.set(true);
+    const {email,password} = this.loginForm.value;
+    this.auth.login(email, password).subscribe({
       next: (response) => {
         this.auth.saveToken(response.token);
         
         this.message = 'Login eseguito';
         this.router.navigateByUrl('/');
       },
-      error: () => {
-        this.message = 'Errore login';
+      //pass error message to message
+      error: (error) => {
+        //show the backend error if available or error login if not.
+        this.message =  error.error.message || error;
+        this.loading.set(false);
       }
     });
   }
