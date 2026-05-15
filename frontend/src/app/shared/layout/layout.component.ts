@@ -8,29 +8,8 @@ import { LoginComponent } from '../../features/auth/login.component';
   standalone: true,
   imports: [RouterLink, LoginComponent],
 
-  //Only show the navbar when there is a logged in user.
-  template: `
-
-  @if(auth.isAuthenticated()) {
-    <div class="container">
-      <div class="card">
-        <h1>Senior API Challenge</h1>
-        <nav>
-          <a routerLink="/">Dashboard</a>
-          <a routerLink="/requests">Requests</a>
-          <a routerLink="/requests/new">New request</a>
-          <a routerLink="/login">Login</a>
-          <button (click)="logout()">Logout</button>
-        </nav>
-      </div>
-      <ng-content></ng-content>
-    </div>
-  }
-  @else {
-    <app-login></app-login>
-  }
-    
-  `
+  templateUrl: './layout.component.html',
+  styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
   public auth = inject(AuthService);

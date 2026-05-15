@@ -1,0 +1,23 @@
+@if(auth.isAuthenticated()) {
+  <div class="container">
+    <div class="card shadow-lg p-4 rounded-xl bg-white/80 backdrop-blur-md border border-gray-100">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">Senior API Challenge</h1>
+      <nav class="flex items-center gap-4">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Dashboard</a>
+        <a routerLink="/requests" routerLinkActive="active" class="nav-link">Requests</a>
+        <a routerLink="/requests/new" routerLinkActive="active" class="nav-link">New request</a>
+        <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+        <button (click)="logout()" class="logout-btn">
+          Logout
+        </button>
+      </nav>
+    </div>
+    
+    <main class="w-full max-w-7xl px-4 py-6">
+      <ng-content></ng-content>
+    </main>
+  </div>
+}
+@else {
+  <app-login></app-login>
+}

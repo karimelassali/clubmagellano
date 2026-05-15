@@ -26,6 +26,7 @@ class DashboardStatsService
 
             return [
                 'total' => ProcessingRequest::count(),
+                'reqs' => ProcessingRequest::all(),
                 'by_status' => [
                     'pending' => (int) ($statusCounts['pending'] ?? 0),
                     'processing' => (int) ($statusCounts['processing'] ?? 0),
