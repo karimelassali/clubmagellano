@@ -1,9 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
-import { DashboardModel } from '../../core/models/dashboard.model';
+import { DashboardStats, DashboardModel } from '../../core/models/dashboard.model';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -13,9 +12,9 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 })
 export class DashboardComponent implements OnInit {
   isLoading = signal(false);
-  stats!: DashboardModel;
+  stats!: DashboardStats;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.load();
@@ -24,8 +23,8 @@ export class DashboardComponent implements OnInit {
   load() {
     this.isLoading.set(true);
     this.api.getStats().subscribe({
-      next: (response) => this.stats = response.data,
-      error: (error) => this.stats = {  error: 'Unable to load stats', ...error },
+      next: (response: DashboardModel) => this.stats = response.data,
+      error: () => this.isLoading.set(false),
       complete: () => this.isLoading.set(false)
     });
   }

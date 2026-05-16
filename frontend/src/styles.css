@@ -1,3 +1,5 @@
+@import 'ngx-toastr/toastr';
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -46,3 +48,5 @@ pre {
 nav a {
   margin-right: 12px;
 }
+
+

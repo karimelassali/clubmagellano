@@ -2,7 +2,22 @@
       <h2>Login-Cogito</h2>
       <p>Utente seed: seniorexample.com / password</p>
       <form [formGroup]="loginForm" (ngSubmit)="submit()">
-        <div><input formControlName="email" name="email" placeholder="Email"></div>
+        <div>
+          <input 
+  formControlName="email" 
+  [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+  placeholder="Email">
+  @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+  <div class="error-msg">
+    @if(loginForm.get('email')?.hasError('required')) {
+      L'email è obbligatoria.<br>
+    }
+    @if(loginForm.get('email')?.hasError('email')) {
+      Inserisci un formato email valido (es. 'holaholly.com').
+    }
+  </div>
+}
+        </div>
         <div><input formControlName="password" name="password" type="password" placeholder="Password"></div>
         @if(loading()){
           <p>loading...</p>

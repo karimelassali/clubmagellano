@@ -40,9 +40,9 @@
 
 ## Dashboard
 
-- [ ] Improve dashboard UI/UX
+- [ x] Improve dashboard UI/UX
 - [ x] Add loading states
-- [ ] Add error handling
+- [x ] Add error handling
 - [ ] Improve responsiveness
 - [ ] Add summary/statistics cards
 - [ ] Improve navigation experience
@@ -54,11 +54,11 @@
 - [ ] Add real backend pagination
 - [ ] Add next/previous page navigation
 - [ ] Add page size selector
-- [ ] Add loading spinner
-- [ ] Add empty state UI
-- [ ] Add API error handling
+- [x] Add loading spinner
+- [x] Add empty state UI
+- [x] Add API error handling
 - [ ] Improve mobile responsiveness
-- [ ] Add request status badges
+- [x] Add request status badges
 - [ ] Improve table/list styling
 
 ---
@@ -66,7 +66,7 @@
 ## Request Detail Page
 
 - [ ] Add loading state
-- [ ] Add API error handling
+- [x] Add API error handling
 - [ ] Improve detail page UI
 - [ ] Add status visualization
 - [ ] Handle missing request IDs
@@ -78,8 +78,8 @@
 
 - [ ] Improve form validation
 - [ ] Add disabled submit button during loading
-- [ ] Add success feedback/toast
-- [ ] Add API error handling
+- [x] Add success feedback/toast
+- [x] Add API error handling
 - [ ] Improve UX of form inputs
 - [ ] Improve form responsiveness
 - [ ] Add typed request payload model
@@ -88,10 +88,10 @@
 
 ## Loading & Error Handling
 
-- [ ] Create reusable loading component/spinner
-- [ ] Create reusable error component
-- [ ] Handle global API errors
-- [ ] Handle network failures gracefully
+- [x] Create reusable loading component/spinner
+- [x] Create reusable error component
+- [x] Handle global API errors
+- [x] Handle network failures gracefully
 - [ ] Prevent duplicate requests
 - [ ] Add retry mechanisms where useful
 
@@ -99,7 +99,7 @@
 
 ## UX Improvements
 
-- [ ] Add toast notifications
+- [x] Add toast notifications
 - [ ] Add skeleton loaders
 - [ ] Improve button states
 - [ ] Improve spacing/layout consistency
@@ -114,9 +114,9 @@
 
 - [ ] Centralize API calls in services
 - [ ] Add typed HTTP responses
-- [ ] Add request interceptors
-- [ ] Add auth token interceptor
-- [ ] Handle HTTP errors globally
+- [x] Add request interceptors
+- [x] Add auth token interceptor
+- [x] Handle HTTP errors globally
 - [ ] Improve API structure
 
 ---

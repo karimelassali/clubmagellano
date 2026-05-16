@@ -7,12 +7,18 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
+import { errorInterceptor } from './app/core/interceptors/error.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 bootstrapApplication(AppComponent, {
   providers: [
-        provideAnimations(),
-        provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor])),
-        importProvidersFrom(TuiRootModule)
-    ]
+    provideAnimations(),
+     provideToastr({
+      positionClass: 'toast-top-right',
+      timeOut: 3000
+    }),
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    importProvidersFrom(TuiRootModule)
+  ]
 }).catch(err => console.error(err));

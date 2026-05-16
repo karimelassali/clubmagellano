@@ -35,3 +35,9 @@
 .card p:hover{
     color: #f03;
 }
+.is-invalid{
+    border-color: #f03;
+}
+.error-msg{
+    color: #f03;
+}

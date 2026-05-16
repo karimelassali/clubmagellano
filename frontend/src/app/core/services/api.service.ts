@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { DashboardModel } from '../models/dashboard.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -33,6 +34,6 @@ export class ApiService {
   }
 
   getStats() {
-    return this.http.get<any>(`${this.baseUrl}/dashboard/stats`);
+    return this.http.get<DashboardModel>(`${this.baseUrl}/dashboard/stats`);
   }
 }
