@@ -2,38 +2,53 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if (User::count() === 0) {
-            return response()->json([
-                'message' => 'No user found',
-            ], 404);
-        }
-
-        $data = $request->validate([
+        // validate request
+        $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'password' => ['required']
         ]);
 
-        $user = User::where('email', $data['email'])->first();
-
-        if (! $user || ! Hash::check($data['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Invalid credentials.'],
-            ]);
+        // check email/password
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
+        // prevents session fixation attacks, brand new session,
+        $request->session()->regenerate();
+
         return response()->json([
-            'token' => $user->createToken('api')->plainTextToken,//Todo:We Need use cookie session based authentication instead.
-            'user' => $user,
+                'message' => 'Logged in',
+                'user' => $request->user(),
+        ]); 
+    }
+
+    public function me(Request $request)
+    {
+        return response()->json([
+            'user' => $request->user()
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json([
+            'message' => 'Logged out'
         ]);
     }
 }

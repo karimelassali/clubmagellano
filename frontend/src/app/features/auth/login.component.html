@@ -5,6 +5,7 @@
         <div>
           <input 
   formControlName="email" 
+  autocomplete="email"
   [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
   placeholder="Email">
   @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {

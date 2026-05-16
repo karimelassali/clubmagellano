@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthResponse, User } from '../models/auth.model';
+import { switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -8,14 +9,19 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
-    // console.log(email, password);
+login(email: string, password: string) {
 
-
-    //Using AuthResponse for type safety.
-    return this.http.post<AuthResponse>('http://localhost:8000/api/login', { email, password });
-  }
-
+  return this.http
+    .get('/sanctum/csrf-cookie')
+    .pipe(
+      switchMap(() =>
+        this.http.post<AuthResponse>(
+          '/api/login',
+          { email, password }
+        )
+      )
+    );
+}
   saveToken(token: string) {
     localStorage.setItem(this.tokenKey, token);
   }
