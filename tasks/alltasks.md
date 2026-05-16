@@ -40,7 +40,7 @@
 ### Authentication
 - [x] Improve login form validation
 - [x] Add proper TypeScript typing to auth responses
-- [ ] Store authentication token/session securely (HttpOnly cookies) 🔴
+- [ x] Store authentication token/session securely (HttpOnly cookies) 🔴
 - [x] Create authentication service
 - [x] Handle login loading state
 - [x] Handle login API errors

@@ -25,6 +25,7 @@ bootstrapApplication(AppComponent, {
     headerName: 'X-XSRF-TOKEN',
   })
   ),
+
     importProvidersFrom(TuiRootModule)
   ]
 }).catch(err => console.error(err));

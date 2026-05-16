@@ -61,9 +61,7 @@ export class LoginComponent {
     
     const {email,password} = this.loginForm.value;
     this.auth.login(email, password).subscribe({
-      next: (response) => {
-        this.auth.saveToken(response.token);
-        
+      next: (response) => {  
         this.message = 'Login eseguito';
         this.router.navigateByUrl('/');
       },

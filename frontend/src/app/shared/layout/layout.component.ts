@@ -16,8 +16,8 @@ export class LayoutComponent {
   private router = inject(Router);
 
   logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
+    this.auth.logout().subscribe({
+      next: () => this.router.navigate(['/login'])
+    });
   }
-
 }
