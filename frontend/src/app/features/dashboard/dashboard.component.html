@@ -1,15 +1,49 @@
-<div class="container">
-  <h2>Dashboard</h2>
+<div class="card">
+  <div class="card-header">
+    <h2>Dashboard</h2>
+    @if (stats && !isLoading()) {
+      <button (click)="load()">
+        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+        Refresh
+      </button>
+    }
+  </div>
  
   @if (isLoading()) {
-    <p>Loading...</p>
+    <div class="loading-state">
+      <svg class="loading-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      <p>Loading your data...</p>
+    </div>
   } @else {
     @if (stats) {
-       <button (click)="load()">Refresh</button>
-      <pre>{{ stats | json }}</pre>
-      <p>{{ stats?.total }}</p>
+      <div class="requests">
+        @for (item of stats.requests; track $index) {
+          <div class="request-item" id="req{{ item.id }}">
+            <div class="request-item-info">
+              <div class="request-badge">
+                {{ item.reference }}
+              </div>
+              <div class="request-creator-block">
+                Created by <span class="request-creator-name">{{ item.created_by }}</span>
+              </div>
+            </div>
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        }
+      </div>
     } @else {
-      <p>Error loading stats</p>
+      <div class="error-state">
+        <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="error-title">Error loading stats</p>
+        <p class="error-desc">We couldn't retrieve the dashboard data at this time.</p>
+      </div>
     }
   }
+
+  <div class="pagination-wrapper">
+    <!-- Implement pagination with previous and next buttons and current page display from real backend daata -->
+    
+    <app-pagination></app-pagination>
+  </div>
 </div>
+

@@ -2,11 +2,12 @@ import { Component, OnInit, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { DashboardModel } from '../../core/models/dashboard.model';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, PaginationComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
