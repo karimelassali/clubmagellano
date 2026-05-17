@@ -1,5 +1,5 @@
 # 🗂️ Full Project TODO — Backend + Frontend
-> Deadline: **after tomorrow**. Focus on 🔴 HIGH priority first.
+
 
 ---
 
