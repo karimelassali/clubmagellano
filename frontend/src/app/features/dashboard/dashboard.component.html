@@ -9,6 +9,41 @@
     }
   </div>
  
+  @if (stats && !isLoading()) {
+  <div class="stats-grid">
+    <!-- Card 1: Total Requests -->
+    <div class="stat-card">
+      <div class="stat-title">Total Requests</div>
+      <div class="stat-value">{{ stats.total }}</div>
+    </div>
+    <!-- Card 2: Created Today -->
+    <div class="stat-card">
+      <div class="stat-title">Created Today</div>
+      <div class="stat-value">{{ stats.created_today }}</div>
+    </div>
+    <!-- Card 3: Avg Processing Time -->
+    <div class="stat-card">
+      <div class="stat-title">Avg. Speed</div>
+      <div class="stat-value">{{ stats.avg_processing_seconds }}s</div>
+    </div>
+    <!-- Card 4: Success Rate or Completed/Failed Status Breakdown -->
+    <div class="stat-card status-card">
+      <div class="stat-title">Request Statuses</div>
+      <div class="status-breakdown">
+        <span class="status-dot completed" title="Completed">
+          🟢 {{ stats.by_status.completed }}
+        </span>
+        <span class="status-dot failed" title="Failed">
+          🔴 {{ stats.by_status.failed }}
+        </span>
+        <span class="status-dot pending" title="Pending">
+          🟡 {{ stats.by_status.pending }}
+        </span>
+      </div>
+    </div>
+  </div>
+}
+
   @if (isLoading()) {
     <div class="loading-state">
       <svg class="loading-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>

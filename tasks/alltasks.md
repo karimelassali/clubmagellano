@@ -71,7 +71,7 @@
 - [x] Add loading states
 - [x] Add error handling
 - [x] Improve responsiveness 🔴
-- [ ] Add summary/statistics cards 🔴
+- [x] Add summary/statistics cards 🔴
 - [ ] Improve navigation experience
 
 ### Requests List
