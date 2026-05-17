@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class ProcessProcessingRequestJob implements ShouldQueue
 {
@@ -21,45 +22,70 @@ class ProcessProcessingRequestJob implements ShouldQueue
     public function __construct(public ProcessingRequest $processingRequest) {}
 
     public function handle(ProcessingEngine $engine): void
-    {
-        $request = $this->processingRequest->fresh();
+{
+    $request = DB::transaction(function () {
 
-        // Only process if it's still pending!
-        if (! $request || $request->status !== ProcessingRequest::STATUS_PENDING) {
-            return;
+        // Get request and lock row so no other worker can do this job in same time
+        $request = ProcessingRequest::whereId(
+            $this->processingRequest->id
+        )
+        ->lockForUpdate()
+        ->first();
+
+        // Stop if missing or not pending
+        if (
+            !$request ||
+            $request->status !== ProcessingRequest::STATUS_PENDING
+        ) {
+            return null;
         }
 
-        // TODO:
-        // - proteggere da doppia elaborazione concorrente
-        // - impostare processing
-        // - invocare engine
-        // - salvare result_json
-        // - impostare completed e processed_at
-        // - invalidare cache correlate
-
+        // Mark as processing
         $request->update([
             'status' => ProcessingRequest::STATUS_PROCESSING,
         ]);
 
-        try {
-            $result = $engine->process($request->payload_json ?? []);
+        return $request;
+    });
 
-            $request->update([
-                'status' => ProcessingRequest::STATUS_COMPLETED,
-                'result_json' => $result,
-                'processed_at' => now(),
-                'error_message' => null,
-            ]);
-        } catch (Throwable $e) {
-            $request->update([
-                'status' => ProcessingRequest::STATUS_FAILED,
-                'error_message' => $e->getMessage(),
-            ]);
-
-            throw $e;
-        } finally {
-            // CACHE INVALIDATION: Ensure the dashboard shows fresh numbers!
-            Cache::forget('dashboard_stats');
-        }
+    // Stop whole job
+    if (!$request) {
+        return;
     }
+
+    // TODO: 
+    // - proteggere da doppia elaborazione concorrente 
+    // - impostare processing 
+    // - invocare engine 
+    // - salvare result_json 
+    // - impostare completed e processed_at 
+    // - invalidare cache correlate
+
+    try {
+
+        $result = $engine->process(
+            $request->payload_json ?? []
+        );
+
+        $request->update([
+            'status' => ProcessingRequest::STATUS_COMPLETED,
+            'result_json' => $result,
+            'processed_at' => now(),
+            'error_message' => null,
+        ]);
+
+    } catch (Throwable $e) {
+
+        $request->update([
+            'status' => ProcessingRequest::STATUS_FAILED,
+            'error_message' => $e->getMessage(),
+        ]);
+
+        throw $e;
+
+    } finally {
+
+        Cache::forget('dashboard_stats');
+    }
+}
 }
