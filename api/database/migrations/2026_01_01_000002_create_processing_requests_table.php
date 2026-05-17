@@ -18,9 +18,12 @@ return new class extends Migration {
             $table->text('error_message')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
-
+            //we need add composite unique constraint
+            $table->unique(['project_id', 'reference']);
             $table->index(['status', 'created_at']);
-            // TODO: valutare indice/unique più corretto
+
+
+            // TODO: valutare indice/unique più corretto:fixed
         });
     }
 

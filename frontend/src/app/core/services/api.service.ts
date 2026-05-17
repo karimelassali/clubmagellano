@@ -4,7 +4,7 @@ import { DashboardModel } from '../models/dashboard.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  baseUrl = 'http://localhost:8000/api';
+  baseUrl = '/api';
 
   constructor(private http: HttpClient) {}
 

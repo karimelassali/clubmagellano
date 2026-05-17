@@ -1,25 +1,64 @@
-<div class="card">
-  <h2>Create request</h2>
-
-  <div>
-    <label>Project</label>
-    <select [(ngModel)]="projectId">
-      <option [ngValue]="null">Select</option>
-      <option *ngFor="let p of projects" [ngValue]="p.id">{{ p.name }}</option>
-    </select>
+<div class="create-container">
+  <!-- Back navigation bar -->
+  <div class="action-bar">
+    <a routerLink="/requests" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back to Requests
+    </a>
   </div>
 
-  <div>
-    <label>Reference</label>
-    <input [(ngModel)]="reference" />
-  </div>
+  <div class="card">
+    <h2>Create request</h2>
 
-  <div>
-    <label>Payload JSON</label>
-    <textarea [(ngModel)]="payload" rows="12" cols="80"></textarea>
-  </div>
+    <!-- Loading projects indicator -->
+    <div class="form-group" *ngIf="loadingProjects">
+      <label>Project</label>
+      <div style="display: flex; align-items: center; gap: 10px; color: #64748b; font-size: 14px; padding: 12px 0;">
+        <app-spinner></app-spinner>
+        <span>Loading projects...</span>
+      </div>
+    </div>
 
-  <button (click)="submit()">Create</button>
-  <p>{{ message }}</p>
-  <pre>{{ response | json }}</pre>
+    <div class="form-group" *ngIf="!loadingProjects">
+      <label>Project</label>
+      <select [(ngModel)]="projectId" [disabled]="submitting">
+        <option [ngValue]="null">Select a Project...</option>
+        <option *ngFor="let p of projects" [ngValue]="p.id">{{ p.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Reference</label>
+      <input [(ngModel)]="reference" placeholder="e.g. ACME-REF-100" [disabled]="submitting" />
+    </div>
+
+    <div class="form-group">
+      <label>Payload JSON</label>
+      <textarea [(ngModel)]="payload" rows="12" [disabled]="submitting"></textarea>
+    </div>
+
+    <button (click)="submit()" [disabled]="submitting">
+      <app-spinner *ngIf="submitting"></app-spinner>
+      <svg *ngIf="!submitting" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      {{ submitting ? 'Creating...' : 'Create Request' }}
+    </button>
+
+    <!-- Feedback messages -->
+    <div *ngIf="message" class="feedback-message" [ngClass]="{
+      'success': response && !response.errors && !message.includes('non valido') && !message.includes('Seleziona') && !message.includes('Inserisci'), 
+      'error': !response || response.errors || message.includes('non valido') || message.includes('Seleziona') || message.includes('Inserisci')
+    }">
+      <span>{{ message }}</span>
+    </div>
+
+    <!-- JSON Preview Wrapper -->
+    <div class="preview-container" *ngIf="response">
+      <div class="preview-title">Response Preview</div>
+      <pre><code>{{ response | json }}</code></pre>
+    </div>
+  </div>
 </div>
