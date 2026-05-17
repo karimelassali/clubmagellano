@@ -62,17 +62,22 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now()->subDay(),
         ]);
 
-        ProcessingRequest::create([
-            'project_id' => $alpha->id,
-            'created_by' => $user->id,
-            'reference' => 'ALPHA-002',
-            'payload_json' => [
-                'customer' => 'Initech',
-                'items' => [
-                    ['sku' => 'D4', 'qty' => 2, 'price' => 5],
+        for ($i = 2; $i <= 30; $i++) {
+            ProcessingRequest::create([
+                'project_id' => $i % 2 === 0 ? $alpha->id : $beta->id,
+                'created_by' => $user->id,
+                'reference' => 'TEST-REF-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'payload_json' => [
+                    'customer' => 'Customer ' . $i,
+                    'items' => [
+                        ['sku' => 'SKU-' . $i, 'qty' => 1, 'price' => $i * 5],
+                    ],
                 ],
-            ],
-            'status' => ProcessingRequest::STATUS_PENDING,
-        ]);
+                'status' => $i % 4 === 0 ? ProcessingRequest::STATUS_COMPLETED 
+                          : ($i % 4 === 1 ? ProcessingRequest::STATUS_FAILED 
+                          : ($i % 4 === 2 ? ProcessingRequest::STATUS_PROCESSING 
+                          : ProcessingRequest::STATUS_PENDING)),
+            ]);
+        }
     }
 }

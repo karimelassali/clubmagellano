@@ -1,17 +1,8 @@
-<tui-input-slider
-    tuiTextfieldSize="m"
-    class="slider"
-    [max]="6"
-    [quantum]="1"
-    [tuiTextfieldCustomContent]="inputCustomContent"
-    [tuiTextfieldLabelOutside]="true"
-    [(ngModel)]="sidePadding"
-></tui-input-slider>
-
-<ng-template #inputCustomContent>sidePadding</ng-template>
-
-<tui-pagination
-    [index]="10"
-    [length]="64"
-    [sidePadding]="sidePadding"
-></tui-pagination>
+<div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; width: 100%; margin-top: 1.5rem;">
+  <tui-pagination
+      [index]="index"
+      [length]="length"
+      [sidePadding]="sidePadding"
+      (indexChange)="onIndexChange($event)"
+  ></tui-pagination>
+</div>

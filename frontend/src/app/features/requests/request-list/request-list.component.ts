@@ -3,11 +3,21 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { TuiTableModule } from '@taiga-ui/addon-table';
+import { TuiBadgeModule } from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-request-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [
+    CommonModule, 
+    RouterLink, 
+    FormsModule, 
+    PaginationComponent,
+    TuiTableModule,
+    TuiBadgeModule
+  ],
   templateUrl: './request-list.component.html',
   styleUrl: './request-list.component.css'
 })
@@ -15,9 +25,10 @@ export class RequestListComponent implements OnInit {
   rows: any[] = [];
   
   filters: Record<string, string> = { reference: '', project_id: '', status: '' };
-  //Vars to passs for the pagination
+  
+  // Pagination variables
   page: number = 1;
-  limit: number = 10;
+  limit: number = 15; // Laravel API hardcoded size
   lastPage: number = 1;
 
   constructor(private api: ApiService) {}
@@ -26,26 +37,26 @@ export class RequestListComponent implements OnInit {
     this.load();
   }
 
- nextPage() {
-  if (this.page < this.lastPage) {
-    this.page++;
+  onPageChange(pageIndex: number): void {
+    this.page = pageIndex + 1; // Convert 0-index to 1-index for backend API
     this.load();
   }
-}
-prevPage() {
-  if (this.page > 1) {
-    this.page--;
+
+  applyFilter(): void {
+    this.page = 1; // Reset to page 1 on filter
     this.load();
   }
-}
 
   load() {
-    
-    //BUG INTENZIONALE: La query service non gestisce il caso in cui la pagina è 1.
-    
     this.api.getRequests(this.filters, this.page, this.limit).subscribe({
-      next: (response) => this.rows = response.data?.data ?? response.data ?? [],
-      error: () => this.rows = []
+      next: (response) => {
+        this.rows = response.data?.data ?? response.data ?? [];
+        this.page = response.data?.current_page ?? 1;
+        this.lastPage = response.data?.last_page ?? 1;
+      },
+      error: () => {
+        this.rows = [];
+      }
     });
   }
 }

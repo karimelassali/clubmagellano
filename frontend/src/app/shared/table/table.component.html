@@ -1,0 +1,163 @@
+<div [style.margin-bottom.rem]="2">
+    <tui-radio-list
+        [itemContent]="content"
+        [items]="sizes"
+        [style.flex-direction]="'row'"
+        [style.width]="'max-content'"
+        [(ngModel)]="size"
+    ></tui-radio-list>
+    <ng-template
+        #content
+        let-value
+    >
+        {{ value === 's' ? 'Small' : value === 'm' ? 'Medium' : 'Large' }}
+    </ng-template>
+</div>
+
+<table
+    tuiTable
+    [size]="size"
+    [style.width.rem]="58"
+>
+    <thead>
+        <tr>
+            <th tuiTh>
+                <div [tuiCell]="size">
+                    <input
+                        tuiCheckbox
+                        type="checkbox"
+                        [ngModel]="checked"
+                        [size]="size === 'l' ? 'm' : 's'"
+                        (ngModelChange)="onCheck($event)"
+                    />
+                    <span tuiTitle>Checkbox</span>
+                </div>
+            </th>
+            <th tuiTh>Title</th>
+            <th tuiTh>Cell</th>
+            <th tuiTh>Status</th>
+            <th
+                tuiTh
+                [style.width.rem]="10"
+            >
+                Items
+            </th>
+            <th tuiTh>Progress</th>
+            <th tuiTh>Actions</th>
+        </tr>
+    </thead>
+    <tbody tuiTbody>
+        <tr *ngFor="let item of data">
+            <td tuiTd>
+                <div [tuiCell]="size">
+                    <input
+                        tuiCheckbox
+                        type="checkbox"
+                        [size]="size === 'l' ? 'm' : 's'"
+                        [(ngModel)]="item.selected"
+                    />
+                    <span tuiTitle>
+                        {{ item.checkbox.title }}
+                        <span tuiSubtitle>{{ item.checkbox.subtitle }}</span>
+                    </span>
+                </div>
+            </td>
+            <td tuiTd>
+                <div [tuiCell]="size">
+                    <span tuiTitle>
+                        <span tuiStatus>
+                            <tui-svg [src]="item.title.icon"></tui-svg>
+                            {{ item.title.title }}
+                            <tui-badge
+                                *ngIf="item.title.chip && item.title.subtitle"
+                                size="xs"
+                                [value]="item.title.chip"
+                            ></tui-badge>
+                        </span>
+                        <tui-badge
+                            *ngIf="!item.title.subtitle && item.title.chip; else subtitle"
+                            size="xs"
+                            [value]="item.title.chip"
+                        ></tui-badge>
+                        <ng-template #subtitle>
+                            <span tuiSubtitle>
+                                {{ item.title.subtitle }}
+                            </span>
+                        </ng-template>
+                    </span>
+                </div>
+            </td>
+            <td tuiTd>
+                <div [tuiCell]="size">
+                    <tui-avatar
+                        [src]="item.cell.name | tuiInitials"
+                        [style.background]="item.cell.name | tuiAutoColor"
+                    ></tui-avatar>
+                    <span tuiTitle>
+                        {{ item.cell.name }}
+                        <span tuiSubtitle>{{ item.cell.email }}</span>
+                    </span>
+                </div>
+            </td>
+            <td tuiTd>
+                <span [tuiStatus]="item.status.color">{{ item.status.value }}</span>
+            </td>
+            <td tuiTd>
+                <tui-items-with-more>
+                    <ng-container *ngFor="let chip of item.items">
+                        <tui-badge
+                            *tuiItem
+                            size="m"
+                            [value]="chip"
+                        ></tui-badge>
+                    </ng-container>
+                    <ng-template
+                        let-number
+                        tuiMore
+                    >
+                        <button
+                            tuiAppearance="icon"
+                            tuiLink
+                            [pseudo]="true"
+                        >
+                            + {{ item.items.length - number - 1 }}
+                        </button>
+                    </ng-template>
+                </tui-items-with-more>
+            </td>
+            <td tuiTd>
+                <span tuiStatus>
+                    <progress
+                        size="s"
+                        tuiProgressBar
+                        [style.width.rem]="6"
+                        [value]="item.progress / 100"
+                    ></progress>
+                    {{ item.progress }}ms
+                </span>
+            </td>
+            <td tuiTd>
+                <span tuiStatus>
+                    <button
+                        appearance="link"
+                        icon="tuiIconEdit2"
+                        size="xs"
+                        tuiAppearance="link"
+                        tuiIconButton
+                    >
+                        Edit
+                    </button>
+                    <button
+                        appearance="link"
+                        icon="tuiIconMoreHorizontal"
+                        size="xs"
+                        tuiAppearance="link"
+                        tuiIconButton
+                    >
+                        More
+                    </button>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
