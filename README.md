@@ -1,4 +1,4 @@
-# 🌟 Sottomissione del Full-Stack API Challenge
+# Sottomissione del Full-Stack API Challenge
 ### Candidato: Senior Developer | Challenge Club Magellano
 
 Ciao! Questa è la mia sottomissione completata e pronta per la produzione della challenge **Senior Laravel + Angular Full-Stack Developer**.
@@ -8,12 +8,12 @@ Ho risolto interamente tutta la logica dello scheletro del backend, stabilito un
 ---
 
 > [!NOTE]
-> 📝 **Nota Personale sulla Lingua dell'Applicazione**
+> **Nota Personale sulla Lingua dell'Applicazione**
 > Desidero precisare che, a causa di tempistiche ristrette, non ho tradotto in italiano le pagine interne e i testi dell'applicazione (che rimangono quindi in lingua inglese). Inoltre, mi trovo molto più a mio agio e sicuro a programmare, scrivere codice e strutturare interfacce utente professionali direttamente in inglese. Per questo motivo, l'intero flusso dell'applicazione e la base di codice sono implementati in inglese.
 
 ---
 
-## 📂 Panoramica dell'Architettura del Progetto
+## Panoramica dell'Architettura del Progetto
 
 Il sistema è suddiviso in due applicazioni principali configurate per comunicare tramite un proxy inverso locale per garantire lo scambio sicuro dei cookie di sessione:
 
@@ -31,7 +31,7 @@ graph TD
 
 ---
 
-## 🚀 Guida di Avvio Rapido (Avvio in 2 Minuti)
+## Guida di Avvio Rapido (Avvio in 2 Minuti)
 
 Per facilitare la revisione della mia sottomissione, ecco il modo più rapido per configurare ed avviare entrambi i progetti localmente:
 
@@ -65,7 +65,7 @@ touch database/database.sqlite
 php artisan migrate --seed
 ```
 
-#### 📌 Avviare il Server Web e il Queue Worker
+#### Avviare il Server Web e il Queue Worker
 
 Poiché l'elaborazione delle richieste viene inviata a una coda in background, **è fondamentale** eseguire un queue worker parallelamente al server web affinché le richieste vengano elaborate dinamicamente. Avvia questi comandi in **due finestre di terminale separate**:
 
@@ -99,12 +99,12 @@ npm start
 ```
 *(Avvia l'applicazione all'indirizzo `http://localhost:4200`)*
 
-#### 🔗 Configurazione del Proxy Locale e Cookie
+#### Configurazione del Proxy Locale e Cookie
 Il server di sviluppo di Angular è configurato tramite il file `proxy.conf.json` per reindirizzare `/api` e `/sanctum` al backend sulla porta `8000`. Questa configurazione previene errori di CORS (Cross-Origin Resource Sharing) ed evita errori di sincronizzazione di CSRF permettendo una condivisione nativa dei cookie di sessione.
 
 ---
 
-## 🔑 Credenziali di Test (Account Seed)
+## Credenziali di Test (Account Seed)
 
 Per navigare all'interno delle pagine protette dell'applicazione, puoi utilizzare l'account amministratore generato automaticamente dal seeder:
 *   **Email:** `senior@example.com`
@@ -112,21 +112,21 @@ Per navigare all'interno delle pagine protette dell'applicazione, puoi utilizzar
 
 ---
 
-## 💎 Funzionalità Chiave Implementate (Senior-Level Highlights)
+## Funzionalità Chiave Implementate (Senior-Level Highlights)
 
-### 🛡️ 1. Autenticazione Sicura basata su Cookie di Sessione
+### 1. Autenticazione Sicura basata su Cookie di Sessione
 Ho rimosso la gestione poco sicura tramite token memorizzati in LocalStorage, implementando un flusso sicuro con **Laravel Sanctum Session Cookie Authentication**:
 *   Il frontend esegue un handshake CSRF iniziale con l'endpoint `/sanctum/csrf-cookie`.
 *   Utilizza la configurazione `withXsrfConfiguration` dell' `HttpClient` di Angular per scambiare e validare i cookie di sessione `HttpOnly` in maniera del tutto trasparente per ogni richiesta.
 *   Integrato un Auth Guard che legge il segnale reattivo (`currentUser() !== null`) per gestire le rotte protette senza sfarfallio della UI.
 
-### ⚡ 2. Caching Avanzato e Strategie di Invalidazione
+### 2. Caching Avanzato e Strategie di Invalidazione
 *   **Cache dei Progetti Attivi (`GET /api/projects`):** I progetti attivi vengono salvati in cache per **5 minuti** con `Cache::remember`. Ho predisposto dei trigger nel backend per invalidare e rigenerare la cache non appena viene aggiornato lo stato dei progetti.
 *   **Cache di Dettaglio delle Richieste (`GET /api/processing-requests/{id}`):** Implementata una cache breve di **60 secondi** specifica per ID, attiva *esclusivamente* quando lo stato della richiesta è `completed`.
 *   **Invalidazione Dinamica:** Quando una richiesta viene modificata o rieseguita (tramite l'azione di retry), la cache associata alla risorsa viene immediatamente invalidata ed eliminata per garantire la coerenza dei dati sul frontend.
 *   **Cache Statistiche Dashboard (`GET /api/dashboard/stats`):** I dati aggregati della dashboard sono memorizzati in cache per **2 minuti**.
 
-### 📊 3. Interfaccia Glassmorphic Premium e Dashboard Interattiva
+### 3. Interfaccia Glassmorphic Premium e Dashboard Interattiva
 *   **Design Glassmorphism Moderno:** Sviluppato interamente con CSS puro e personalizzato, sfocature di sfondo (backdrop-filter), gradienti eleganti, tipografia raffinata ed animazioni fluide.
 *   **Integrazione Taiga UI:** Sfruttati i componenti della libreria Taiga UI per tabelle ordinate, campi form avanzati e visualizzazioni professionali.
 *   **Riesecuzione delle Richieste Fallite (Retry):** Se una richiesta fallisce, viene mostrato istantaneamente un pulsante **Retry** nella schermata di dettaglio. Al clic, viene invocato l'endpoint `POST /api/processing-requests/{id}/retry`, che ripristina lo stato a `pending` e rimette il job in coda, aggiornando le statistiche della dashboard in tempo reale.
@@ -134,7 +134,7 @@ Ho rimosso la gestione poco sicura tramite token memorizzati in LocalStorage, im
 
 ---
 
-## 📂 File Chiave Modificati nel Progetto
+## File Chiave Modificati nel Progetto
 
 Ecco l'elenco dei file principali in cui risiede la logica fondamentale implementata:
 
@@ -149,7 +149,7 @@ Ecco l'elenco dei file principali in cui risiede la logica fondamentale implemen
 
 ---
 
-## ❓ FAQ & Risoluzione dei Problemi
+## FAQ e Risoluzione dei Problemi
 
 ### Q: Perché le mie richieste di elaborazione rimangono bloccate in stato `pending`?
 **A:** Il worker delle code di Laravel non è attivo. Assicurati di aver aperto un terminale separato nella cartella `api` ed eseguito il comando `php artisan queue:work`.
