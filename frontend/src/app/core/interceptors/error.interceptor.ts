@@ -13,8 +13,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       console.log("Error: ", err);
       //If the user current token not valid or expired ot noth authenticated at all redirect to login page.
       if (err.status === 401) {
-        toast.error(err.error?.message + ' Per favore, rieffettua il login.' || 'An unexpected error occurred');
-         router.navigate(['/login']);
+        // Skip automatic global redirect & toast for initial auth check and login requests
+        if (!req.url.includes('/api/me') && !req.url.includes('/api/login')) {
+          toast.error(err.error?.message + ' Per favore, rieffettua il login.' || 'An unexpected error occurred');
+          router.navigate(['/login']);
+        }
       }
       else if (err.status == 500) {
         toast.error(err.error?.message || 'An unexpected error occurred');

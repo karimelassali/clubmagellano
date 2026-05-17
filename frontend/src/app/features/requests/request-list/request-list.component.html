@@ -16,7 +16,12 @@
     <!-- Filter bar -->
     <div class="filter-bar">
       <input [(ngModel)]="filters.reference" placeholder="Search reference..." (keydown.enter)="applyFilter()">
-      <input [(ngModel)]="filters.project_id" placeholder="Filter project ID..." (keydown.enter)="applyFilter()">
+      <select [(ngModel)]="filters.project_id" (change)="applyFilter()">
+        <option value="">All Projects</option>
+        <option *ngFor="let project of projects" [value]="project.id.toString()">
+          {{ project.name }}
+        </option>
+      </select>
       
       <select [(ngModel)]="filters.status">
         <option value="">All Statuses</option>

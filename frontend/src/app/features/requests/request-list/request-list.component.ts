@@ -7,6 +7,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiBadgeModule } from '@taiga-ui/kit';
 import { ProcessingRequest } from '../../../core/models/request.model';
+import { Project } from '../../../core/models/project.model';
 
 @Component({
   selector: 'app-request-list',
@@ -24,6 +25,7 @@ import { ProcessingRequest } from '../../../core/models/request.model';
 })
 export class RequestListComponent implements OnInit {
   rows: ProcessingRequest[] = [];
+  projects: Project[] = [];
   
   filters: Record<string, string> = { reference: '', project_id: '', status: '' };
   
@@ -36,6 +38,15 @@ export class RequestListComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
+    this.api.getProjects().subscribe({
+      next: (response) => {
+        this.projects = response.data ?? [];
+      }
+    });
   }
 
   onPageChange(pageIndex: number): void {
