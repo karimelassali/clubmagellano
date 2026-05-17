@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 // import { FormsModule } from '@angular/forms';
 
 //Using Form Builder and Reactive Forms for better forms handling and validation.
@@ -26,7 +26,7 @@ import { SpinnerComponent } from '../../shared/spinner/spinner.component';
   //Using A seperated html comp for clean code and better scalability.
   templateUrl: "./login.component.html"
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loading = signal(false);
   message = '';
 
@@ -48,8 +48,16 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
+  ngOnInit() {
+    // Check if the user is already authenticated (fallback)
+    console.log('[LoginComponent] Checking auth state on init:', this.auth.isAuthenticated(), this.auth.currentUser());
+    if (this.auth.isAuthenticated()) {
+      console.log('[LoginComponent] User already authenticated, redirecting to /');
+      this.router.navigateByUrl('/');
+    }
+  }
   submit() {
-
+    
     //If form is invalid, show error message and return.
     if(this.loginForm.invalid){
       this.message = 'Per favore inserisci email e password';

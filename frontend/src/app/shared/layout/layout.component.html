@@ -5,11 +5,13 @@
       <nav class="flex items-center gap-4">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Dashboard</a>
         <a routerLink="/requests" routerLinkActive="active" class="nav-link">Requests</a>
-        <a routerLink="/requests/new" routerLinkActive="active" class="nav-link">New request</a>
-        <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
-        <button (click)="logout()" class="logout-btn">
+       
+        @if (auth.isAuthenticated()) {
+ <button (click)="logout()" class="logout-btn">
           Logout
-        </button>
+        </button>        } @else {
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+        }
       </nav>
     </div>
     

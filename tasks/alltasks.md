@@ -70,7 +70,7 @@
 - [x] Improve dashboard UI/UX
 - [x] Add loading states
 - [x] Add error handling
-- [ ] Improve responsiveness 🔴
+- [x] Improve responsiveness 🔴
 - [ ] Add summary/statistics cards 🔴
 - [ ] Improve navigation experience
 

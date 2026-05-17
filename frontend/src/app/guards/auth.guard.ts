@@ -1,11 +1,17 @@
 import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthService } from '../core/services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const router = new Router();
-  if (localStorage.getItem('auth_token') === null) {
+
+  //Removing old storageauth checking , replace with the new session auth method
+  
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  
+  if (!authService.isAuthenticated()) {
     return router.navigate(['/login']);
   }
-  else {
     return true;
-  }
+  
 };

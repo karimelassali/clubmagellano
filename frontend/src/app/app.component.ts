@@ -19,6 +19,6 @@ export class AppComponent {
 
    //initiate the current user on application startup.
   ngOnInit(): void {
-    this.auth.fetchCurrentUser().subscribe();
+    // Current user is already fetched by APP_INITIALIZER at startup.
   }
 }

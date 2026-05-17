@@ -1,4 +1,4 @@
-import { importProvidersFrom } from "@angular/core";
+import { importProvidersFrom, APP_INITIALIZER } from "@angular/core";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { TuiRootModule } from "@taiga-ui/core";
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { routes } from './app/app.routes';
 import { authInterceptor } from './app/core/interceptors/auth.interceptor';
 import { errorInterceptor } from './app/core/interceptors/error.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { AuthService } from './app/core/services/auth.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -25,7 +26,12 @@ bootstrapApplication(AppComponent, {
     headerName: 'X-XSRF-TOKEN',
   })
   ),
-
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (authService: AuthService) => () => authService.fetchCurrentUser(),
+      deps: [AuthService],
+      multi: true
+    },
     importProvidersFrom(TuiRootModule)
   ]
 }).catch(err => console.error(err));

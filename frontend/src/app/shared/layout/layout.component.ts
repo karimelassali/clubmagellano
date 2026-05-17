@@ -17,7 +17,9 @@ export class LayoutComponent {
 
   logout() {
     this.auth.logout().subscribe({
-      next: () => this.router.navigate(['/login'])
+      next: () => {
+        this.router.navigate(['/login']);
+      }
     });
   }
 }
