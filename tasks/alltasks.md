@@ -129,4 +129,4 @@
 - [x] Remove console logs/debug code 🔴
 - [x] Improve overall UI polish
 - [x] Test complete user flow 🔴
-- [ ] Prepare clean Git commits 🔴
+- [x] Prepare clean Git commits 🔴
