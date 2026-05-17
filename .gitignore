@@ -9,4 +9,4 @@
 /api/storage
 /api/database/database.sqlite
 /api/storage/framework
-
+/frontend/dist

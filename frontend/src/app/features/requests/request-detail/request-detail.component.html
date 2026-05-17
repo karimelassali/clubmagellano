@@ -1,7 +1,110 @@
-<div class="card">
-  <h2>Request detail</h2>
-  <button (click)="load()">Refresh</button>
-  <button *ngIf="request?.status === 'failed'" (click)="retry()">Retry</button>
-  <pre>{{ request | json }}</pre>
-  <p>{{ message }}</p>
+<div class="container-detail">
+  <!-- Back Link & Action Bar -->
+  <div class="action-bar">
+    <a routerLink="/requests" class="back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Requests
+    </a>
+
+    <div class="action-buttons" *ngIf="request && !isLoading()">
+      <button (click)="load()" class="btn-refresh">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+        Refresh
+      </button>
+      <button *ngIf="request?.status === 'failed'" (click)="retry()" class="btn-retry">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        Retry Processing
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="loading-state">
+    <svg class="loading-icon animate-spin" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+    <p>Retrieving request details...</p>
+  </div>
+  <div class="not-found-card" *ngIf="!request && !isLoading()">
+ 
+  <h3>Request Not Found</h3>
+  <p *ngIf="message">{{ message }}</p>
+  <p *ngIf="!message">We couldn't find the request with ID <strong>#{{ requestedId }}</strong>. It may have been deleted or the URL is incorrect.</p>
+  
+  <a routerLink="/requests" class="btn-back-home">
+    Return to Requests List
+  </a>
 </div>
+
+
+
+  <!-- Error Callout -->
+  <div *ngIf="message" class="toast-message" [class.success]="message.includes('successfully')">
+    <span class="message-icon">
+      <svg *ngIf="message.includes('failed')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg *ngIf="message.includes('successfully')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </span>
+    {{ message }}
+  </div>
+
+  <!-- Content Card -->
+  <div class="card" *ngIf="request && !isLoading()">
+    <div class="card-header">
+      <div class="header-main">
+        <span class="request-id">Request #{{ request.id }}</span>
+        <h2>{{ request.reference }}</h2>
+      </div>
+      <div class="status-badge" [class]="request.status">
+        <span class="dot"></span>
+        {{ request.status | uppercase }}
+      </div>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-grid">
+      <div class="meta-item">
+        <span class="meta-label">Project</span>
+        <span class="meta-value font-semibold">{{ request.project?.name || 'N/A' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Created By</span>
+        <span class="meta-value font-semibold">{{ request.created_by }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Submitted On</span>
+        <span class="meta-value">{{ request.created_at | date:'medium' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Processed On</span>
+        <span class="meta-value">{{ request.processed_at ? (request.processed_at | date:'medium') : 'Pending' }}</span>
+      </div>
+    </div>
+
+    <!-- Error Block if Failed -->
+    <div class="error-callout" *ngIf="request.status === 'failed' && request.error_message">
+      <div class="error-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Error Logs
+      </div>
+      <div class="error-body">
+        {{ request.error_message }}
+      </div>
+    </div>
+
+    <!-- JSON Payloads Section -->
+    <div class="json-section">
+      <div class="json-column">
+        <h3>Request Payload</h3>
+        <div class="code-wrapper">
+          <pre><code>{{ request.payload_json | json }}</code></pre>
+        </div>
+      </div>
+      
+      <div class="json-column" *ngIf="request.result_json">
+        <h3>Execution Result</h3>
+        <div class="code-wrapper result">
+          <pre><code>{{ request.result_json | json }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
