@@ -4,6 +4,8 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
+import { Project } from '../../../core/models/project.model';
+import { ProcessingRequest } from '../../../core/models/request.model';
 
 @Component({
   selector: 'app-request-create',
@@ -13,7 +15,7 @@ import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
   styleUrl: './request-create.component.css'
 })
 export class RequestCreateComponent implements OnInit {
-  projects: any[] = [];
+  projects: Project[] = [];
   projectId: number | null = null;
   reference = '';
   payload = JSON.stringify({
@@ -29,7 +31,7 @@ export class RequestCreateComponent implements OnInit {
   submitting = false;
   
   message = '';
-  response: any = null;
+  response: ProcessingRequest | null = null;
 
   constructor(private api: ApiService) {}
 

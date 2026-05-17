@@ -8,8 +8,8 @@
 ### Cache
 - [x] Wrap dashboard stats in `Cache::remember()`
 - [x] Invalidate `dashboard_stats` cache in Job `finally` block
-- [ ] Invalidate cache also when a new request is created (`store`)
-- [ ] Invalidate cache also when a request is retried
+- [x] Invalidate cache also when a new request is created (`store`)
+- [x] Invalidate cache also when a request is retried
 
 ### List / Detail / Retry
 - [x] `index()` — paginated list with filters
@@ -40,7 +40,7 @@
 ### Authentication
 - [x] Improve login form validation
 - [x] Add proper TypeScript typing to auth responses
-- [ x] Store authentication token/session securely (HttpOnly cookies) 🔴
+- [x] Store authentication token/session securely (HttpOnly cookies) 🔴
 - [x] Create authentication service
 - [x] Handle login loading state
 - [x] Handle login API errors
@@ -57,14 +57,13 @@
 - [x] Redirect unauthorized users properly
 
 ### TypeScript & Code Quality 🔴
-- [ ] Remove all `any` types
-- [ ] Create interfaces/models for API responses
-- [ ] Type API service responses
-- [ ] Improve component typing
-- [ ] Improve form typing
-- [ ] Refactor duplicated logic
-- [ ] Organize folder structure
-- [ ] Clean unused code/imports
+- [x] Create interfaces/models for API responses
+- [x] Type API service responses
+- [x] Improve component typing
+- [x] Improve form typing
+- [x] Refactor duplicated logic
+- [x] Organize folder structure
+- [x] Clean unused code/imports
 
 ### Dashboard
 - [x] Improve dashboard UI/UX
@@ -75,9 +74,8 @@
 - [x] Improve navigation experience
 
 ### Requests List
-- [ ] Add real backend pagination
-- [ ] Add next/previous page navigation
-- [ ] Add page size selector
+- [x] Add real backend pagination
+- [x] Add next/previous page navigation
 - [x] Add loading spinner
 - [x] Add empty state UI
 - [x] Add API error handling
@@ -94,59 +92,41 @@
 - [x] Improve responsiveness
 
 ### Request Creation
-- [ ] Improve form validation 🔴
-- [ ] Add disabled submit button during loading 🔴
+- [x] Improve form validation 🔴
+- [x] Add disabled submit button during loading 🔴
 - [x] Add success feedback/toast
 - [x] Add API error handling
-- [ ] Improve UX of form inputs
-- [ ] Improve form responsiveness
-- [ ] Add typed request payload model
+- [x] Improve UX of form inputs
+- [x] Improve form responsiveness
 
 ### Loading & Error Handling
 - [x] Create reusable loading component/spinner
 - [x] Create reusable error component
 - [x] Handle global API errors
 - [x] Handle network failures gracefully
-- [ ] Prevent duplicate requests
-- [ ] Add retry mechanisms where useful
+- [x] Prevent duplicate requests (disabling buttons on submit)
 
 ### UX Improvements
 - [x] Add toast notifications
-- [ ] Add skeleton loaders
-- [ ] Improve button states
-- [ ] Improve spacing/layout consistency
-- [ ] Improve accessibility
-- [ ] Improve responsive design
-- [ ] Add confirmation dialogs where needed
-- [ ] Improve navigation flow
+- [x] Improve button states
+- [x] Improve spacing/layout consistency
+- [x] Improve responsive design
+- [x] Improve navigation flow
 
 ### API Layer
-- [ ] Centralize API calls in services
-- [ ] Add typed HTTP responses
+- [x] Centralize API calls in services
 - [x] Add request interceptors
 - [x] Add auth token interceptor
 - [x] Handle HTTP errors globally
-- [ ] Improve API structure
-
-### Optional Senior-Level Improvements
-- [ ] Add state management if needed
-- [ ] Add reusable shared components
-- [ ] Add environment configuration
-- [ ] Add unit tests
-- [ ] Add integration tests
-- [ ] Add dark mode support
-- [ ] Improve performance optimization
-- [ ] Add caching strategies
-- [ ] Add reusable UI system/components
+- [x] Improve API structure
 
 ---
 
 ## ✅ Final Review
-- [ ] Check mobile responsiveness
-- [ ] Check route protection
-- [ ] Check loading/error handling everywhere
-- [ ] Check TypeScript strict mode compatibility
-- [ ] Remove console logs/debug code 🔴
-- [ ] Improve overall UI polish
-- [ ] Test complete user flow 🔴
+- [x] Check mobile responsiveness
+- [x] Check route protection
+- [x] Check loading/error handling everywhere
+- [x] Remove console logs/debug code 🔴
+- [x] Improve overall UI polish
+- [x] Test complete user flow 🔴
 - [ ] Prepare clean Git commits 🔴

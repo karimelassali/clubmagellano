@@ -69,6 +69,10 @@ class ProcessingRequestController extends Controller
                 'processed_at' => null,
             ]);
             
+            //Invalidate caches
+            Cache::forget('processing-request-show:' . $processingRequest->id);
+            Cache::forget('dashboard_stats');
+            
             //Re-dispatching the job.
             ProcessProcessingRequestJob::dispatch($processingRequest);
             

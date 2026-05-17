@@ -6,6 +6,7 @@ import { ApiService } from '../../../core/services/api.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiBadgeModule } from '@taiga-ui/kit';
+import { ProcessingRequest } from '../../../core/models/request.model';
 
 @Component({
   selector: 'app-request-list',
@@ -22,7 +23,7 @@ import { TuiBadgeModule } from '@taiga-ui/kit';
   styleUrl: './request-list.component.css'
 })
 export class RequestListComponent implements OnInit {
-  rows: any[] = [];
+  rows: ProcessingRequest[] = [];
   
   filters: Record<string, string> = { reference: '', project_id: '', status: '' };
   

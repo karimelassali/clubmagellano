@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { JsonPipe, CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
+import { ProcessingRequest } from '../../../core/models/request.model';
 
 @Component({
   selector: 'app-request-detail',
@@ -11,7 +12,7 @@ import { ApiService } from '../../../core/services/api.service';
   styleUrl: './request-detail.component.css'
 })
 export class RequestDetailComponent implements OnInit {
-  request: any = null;
+  request: ProcessingRequest | null = null;
   message = '';
   isLoading = signal(false);
 
