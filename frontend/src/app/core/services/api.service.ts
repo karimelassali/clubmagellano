@@ -12,11 +12,14 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/projects`);
   }
 
-  getRequests(filters: Record<string, string> = {}) {
+  getRequests(filters: Record<string, string> = {}, page: number=1 , limit: number=10 ) {
     let params = new HttpParams();
     Object.entries(filters).forEach(([key, value]) => {
       if (value) params = params.set(key, value);
     });
+
+    if (page > 0) params = params.set('page', page.toString());
+    if (limit > 0) params = params.set('limit', limit.toString());
 
     return this.http.get<any>(`${this.baseUrl}/processing-requests`, { params });
   }

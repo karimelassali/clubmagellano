@@ -19,19 +19,19 @@
 - [x] `retry()` — re-dispatch job after reset
 
 ### Concurrency Controls in Job 🔴
-- [ ] Add atomic lock (`Cache::lock()`) to prevent double processing
-- [ ] Set status to `processing` atomically before invoking engine
-- [ ] Release lock after job completes or fails
+- [x] Use a semaphore or lock to prevent race conditions
+- [x] Set status to `processing` atomically before invoking engine
+- [x] Release lock after job completes or fails
 
 ### Tests
 - [x] Test: unauthenticated request returns 401
 - [x] Test: paginated list returns correct structure
 - [x] Test: retry a failed request resets fields and dispatches job
 - [x] Test: cannot retry a non-failed request returns 422
-- [ ] Test: `store` creates request and dispatches job
-- [ ] Test: `show` returns correct detail structure
-- [ ] Test: dashboard stats endpoint returns expected fields
-- [ ] Test: cache is invalidated after job completes
+- [x] Test: `store` creates request and dispatches job
+- [x] Test: `show` returns correct detail structure
+- [x] Test: dashboard stats endpoint returns expected fields
+- [x] Test: cache is invalidated after job completes
 
 ---
 

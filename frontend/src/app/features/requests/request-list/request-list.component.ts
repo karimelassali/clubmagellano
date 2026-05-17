@@ -13,7 +13,12 @@ import { ApiService } from '../../../core/services/api.service';
 })
 export class RequestListComponent implements OnInit {
   rows: any[] = [];
+  
   filters: Record<string, string> = { reference: '', project_id: '', status: '' };
+  //Vars to passs for the pagination
+  page: number = 1;
+  limit: number = 10;
+  lastPage: number = 1;
 
   constructor(private api: ApiService) {}
 
@@ -21,8 +26,24 @@ export class RequestListComponent implements OnInit {
     this.load();
   }
 
+ nextPage() {
+  if (this.page < this.lastPage) {
+    this.page++;
+    this.load();
+  }
+}
+prevPage() {
+  if (this.page > 1) {
+    this.page--;
+    this.load();
+  }
+}
+
   load() {
-    this.api.getRequests(this.filters).subscribe({
+    
+    //BUG INTENZIONALE: La query service non gestisce il caso in cui la pagina è 1.
+    
+    this.api.getRequests(this.filters, this.page, this.limit).subscribe({
       next: (response) => this.rows = response.data?.data ?? response.data ?? [],
       error: () => this.rows = []
     });

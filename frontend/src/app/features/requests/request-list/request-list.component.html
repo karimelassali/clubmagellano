@@ -34,6 +34,13 @@
       </tr>
     </tbody>
   </table>
-
+{{this.page}}
+{{this.limit}}
+<!-- In request-list.component.html -->
+<div class="pagination-controls" *ngIf="rows.length">
+  <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+  <span>Page {{ page }} of {{ lastPage }}</span>
+  <button (click)="nextPage()" [disabled]="page === lastPage">Next</button>
+</div>
   <p *ngIf="!rows.length">No rows</p>
 </div>
