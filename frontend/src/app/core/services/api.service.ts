@@ -44,7 +44,7 @@ export class ApiService {
     return this.http.post<ApiResponse<ProcessingRequest>>(`${this.baseUrl}/processing-requests/${id}/retry`, {});
   }
 
-  getStats(): Observable<DashboardModel> {
-    return this.http.get<DashboardModel>(`${this.baseUrl}/dashboard/stats`);
+  getStats(page: number = 1): Observable<DashboardModel> {
+    return this.http.get<DashboardModel>(`${this.baseUrl}/dashboard/stats?page=${page}`);
   }
 }

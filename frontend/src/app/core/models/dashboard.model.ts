@@ -16,7 +16,13 @@ export interface ByStatus {
 
 export interface DashboardStats {
   total: number;
-  requests: DashboardRequest[];
+  requests: {
+    data: DashboardRequest[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+  };
   by_status: ByStatus;
   created_today: number;
   avg_processing_seconds: number;
