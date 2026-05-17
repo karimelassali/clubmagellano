@@ -1,39 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { ApiService } from '../../core/services/api.service';
+import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-request-create',
   standalone: true,
   imports: [FormsModule, CommonModule, JsonPipe],
-  template: `
-    <div class="card">
-      <h2>Create request</h2>
-
-      <div>
-        <label>Project</label>
-        <select [(ngModel)]="projectId">
-          <option [ngValue]="null">Select</option>
-          <option *ngFor="let p of projects" [ngValue]="p.id">{{ p.name }}</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Reference</label>
-        <input [(ngModel)]="reference" />
-      </div>
-
-      <div>
-        <label>Payload JSON</label>
-        <textarea [(ngModel)]="payload" rows="12" cols="80"></textarea>
-      </div>
-
-      <button (click)="submit()">Create</button>
-      <p>{{ message }}</p>
-      <pre>{{ response | json }}</pre>
-    </div>
-  `
+  templateUrl: './request-create.component.html',
+  styleUrl: './request-create.component.css'
 })
 export class RequestCreateComponent implements OnInit {
   projects: any[] = [];

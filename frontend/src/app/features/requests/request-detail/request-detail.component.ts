@@ -1,21 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JsonPipe, CommonModule } from '@angular/common';
-import { ApiService } from '../../core/services/api.service';
+import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-request-detail',
   standalone: true,
   imports: [JsonPipe, CommonModule],
-  template: `
-    <div class="card">
-      <h2>Request detail</h2>
-      <button (click)="load()">Refresh</button>
-      <button *ngIf="request?.status === 'failed'" (click)="retry()">Retry</button>
-      <pre>{{ request | json }}</pre>
-      <p>{{ message }}</p>
-    </div>
-  `
+  templateUrl: './request-detail.component.html',
+  styleUrl: './request-detail.component.css'
 })
 export class RequestDetailComponent implements OnInit {
   request: any = null;

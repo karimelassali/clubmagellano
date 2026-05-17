@@ -1,0 +1,7 @@
+<div class="card">
+  <h2>Request detail</h2>
+  <button (click)="load()">Refresh</button>
+  <button *ngIf="request?.status === 'failed'" (click)="retry()">Retry</button>
+  <pre>{{ request | json }}</pre>
+  <p>{{ message }}</p>
+</div>

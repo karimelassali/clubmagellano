@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login.component';
-import { RequestListComponent } from './features/requests/request-list.component';
-import { RequestCreateComponent } from './features/requests/request-create.component';
-import { RequestDetailComponent } from './features/requests/request-detail.component';
+import { RequestListComponent } from './features/requests/request-list/request-list.component';
+import { RequestCreateComponent } from './features/requests/request-create/request-create.component';
+import { RequestDetailComponent } from './features/requests/request-detail/request-detail.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';

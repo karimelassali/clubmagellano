@@ -3,10 +3,11 @@ import { JsonPipe } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { DashboardStats, DashboardModel } from '../../core/models/dashboard.model';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [JsonPipe, PaginationComponent],
+  imports: [JsonPipe, PaginationComponent, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

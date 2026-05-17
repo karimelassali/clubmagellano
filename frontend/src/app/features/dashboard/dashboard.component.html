@@ -53,7 +53,7 @@
     @if (stats) {
       <div class="requests">
         @for (item of stats.requests; track $index) {
-          <div class="request-item" id="req{{ item.id }}">
+          <div class="request-item" id="req{{ item.id }}" [routerLink]="'/requests/' + item.id">
             <div class="request-item-info">
               <div class="request-badge">
                 {{ item.reference }}
