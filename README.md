@@ -100,7 +100,7 @@ npm start
 *(Avvia l'applicazione all'indirizzo `http://localhost:4200`)*
 
 #### 🔗 Configurazione del Proxy Locale e Cookie
-Il server di sviluppo di Angular è configurato tramite il file [`proxy.conf.json`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/frontend/proxy.conf.json) per reindirizzare `/api` e `/sanctum` al backend sulla porta `8000`. Questa configurazione previene errori di CORS (Cross-Origin Resource Sharing) ed evita errori di sincronizzazione di CSRF permettendo una condivisione nativa dei cookie di sessione.
+Il server di sviluppo di Angular è configurato tramite il file `proxy.conf.json` per reindirizzare `/api` e `/sanctum` al backend sulla porta `8000`. Questa configurazione previene errori di CORS (Cross-Origin Resource Sharing) ed evita errori di sincronizzazione di CSRF permettendo una condivisione nativa dei cookie di sessione.
 
 ---
 
@@ -139,13 +139,13 @@ Ho rimosso la gestione poco sicura tramite token memorizzati in LocalStorage, im
 Ecco l'elenco dei file principali in cui risiede la logica fondamentale implementata:
 
 ### Backend Logic
-*   [`DashboardStatsService.php`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/api/app/Services/DashboardStatsService.php) — Elabora e aggrega i KPI statistici in tempo reale (conteggi di stato, durata media di elaborazione, ecc.).
-*   [`DatabaseSeeder.php`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/api/database/seeders/DatabaseSeeder.php) — Crea il database iniziale, comprensivo dei progetti (Active: Alpha/Beta, Inactive: Legacy) e di record simulati.
+*   `api/app/Services/DashboardStatsService.php` — Elabora e aggrega i KPI statistici in tempo reale (conteggi di stato, durata media di elaborazione, ecc.).
+*   `api/database/seeders/DatabaseSeeder.php` — Crea il database iniziale, comprensivo dei progetti (Active: Alpha/Beta, Inactive: Legacy) e di record simulati.
 
 ### Frontend Logic
-*   [`main.ts`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/frontend/src/main.ts) — Configura gli interceptors, la gestione dei cookie CSRF e l'inizializzazione sincrona dello stato utente all'avvio dell'app.
-*   [`auth.service.ts`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/frontend/src/app/core/services/auth.service.ts) — Gestisce i flussi di autenticazione con Sanctum e memorizza l'utente corrente tramite gli Angular Signals.
-*   [`dashboard.component.ts`](file:///c:/Users/Utente/Downloads/magellano_devtest-main%283%29/magellano_devtest-main/frontend/src/app/features/dashboard/dashboard.component.ts) — Alimenta i grafici e le schede riassuntive dei dati prestazionali.
+*   `frontend/src/main.ts` — Configura gli interceptors, la gestione dei cookie CSRF e l'inizializzazione sincrona dello stato utente all'avvio dell'app.
+*   `frontend/src/app/core/services/auth.service.ts` — Gestisce i flussi di autenticazione con Sanctum e memorizza l'utente corrente tramite gli Angular Signals.
+*   `frontend/src/app/features/dashboard/dashboard.component.ts` — Alimenta i grafici e le schede riassuntive dei dati prestazionali.
 
 ---
 
