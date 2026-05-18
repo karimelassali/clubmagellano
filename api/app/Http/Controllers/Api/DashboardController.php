@@ -10,7 +10,6 @@ class DashboardController extends Controller
 {
     public function stats(DashboardStatsService $service): JsonResponse
     {
-        // TODO: usare cache applicativa
         return response()->json([
             'data' => $service->get(),
         ]);

@@ -10,7 +10,6 @@ class ProjectController extends Controller
 {
     public function index(ProjectQueryService $service): JsonResponse
     {
-        // TODO: usare cache applicativa e restituire solo progetti attivi
         return response()->json([
             'data' => $service->getActiveProjects(),
         ]);

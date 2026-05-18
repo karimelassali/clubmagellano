@@ -71,7 +71,7 @@ class ProcessingRequestController extends Controller
             
             //Invalidate caches
             Cache::forget('processing-request-show:' . $processingRequest->id);
-            Cache::forget('dashboard_stats');
+            Cache::put('dashboard_stats_version', time());
             
             //Re-dispatching the job.
             ProcessProcessingRequestJob::dispatch($processingRequest);

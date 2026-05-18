@@ -85,7 +85,7 @@ class ProcessProcessingRequestJob implements ShouldQueue
 
     } finally {
 
-        Cache::forget('dashboard_stats');
+        Cache::put('dashboard_stats_version', time());
         Cache::forget('processing-request-show:' . $request->id);
     }
 }

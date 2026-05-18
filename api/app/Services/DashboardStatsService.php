@@ -11,7 +11,8 @@ class DashboardStatsService
     public function get(): array
     {
         $page = request()->integer('page', 1);
-        $cacheKey = 'dashboard_stats_page_' . $page;
+        $version = Cache::get('dashboard_stats_version', 1);
+        $cacheKey = 'dashboard_stats_v' . $version . '_page_' . $page;
 
         // I did wrap the ENTIRE logic in the cache to avoid any DB calls during a cache hit.
         return Cache::remember($cacheKey, 120, function () {
